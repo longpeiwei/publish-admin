@@ -1,27 +1,23 @@
 <template>
-  <div>
-    <div id="nav">
-      <router-view></router-view>
-    </div>
+  <div class="home-conteiner">home
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'App',
+  name: 'HomeIndex',
   data () {
     return {
     }
   },
+  created () {
+  },
   methods: {
-
   }
 }
 </script>
 
-<style lang="less">
-body {
-  margin: 0;
-}
+<style scoped lang="less">
+
 </style>
