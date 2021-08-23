@@ -17,8 +17,8 @@
         </div>
         <el-dropdown>
           <div class="avatar-wrap">
-            <img class="avatar" src="https://img2.baidu.com/it/u=1704219071,3761829583&fm=26&fmt=auto&gp=0.jpg" alt="">
-            <span>年付费的</span>
+            <img class="avatar" :src="user.photo" alt="">
+            <span>{{user.name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </div>
           <!-- <span>
@@ -52,11 +52,19 @@ export default {
   },
   data () {
     return {
-      isCollapse: false
+      isCollapse: false,
+      user: {}
     }
   },
   async created () {
-    await getCurrentUser()
+    const { data } = await getCurrentUser()
+    this.user = data.data[0]
+
+    this.$bus.$on('update-info', data => {
+      // console.log(data, 'update')
+      this.user.name = data.name
+      this.user.photo = data.photo
+    })
   },
   methods: {
     onLogout () {

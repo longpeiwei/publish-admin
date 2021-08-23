@@ -6,6 +6,12 @@ module.exports = {
         pathRewrite: {
           '^/res': ''
         }
+      },
+      '/load': {
+        target: 'http://localhost:8888',
+        pathRewrite: {
+          '^/load': ''
+        }
       }
     }
   }

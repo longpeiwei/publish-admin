@@ -63,7 +63,17 @@
         size="small"
         v-loading="isLoading"
       >
-        <el-table-column label="封面"></el-table-column>
+        <el-table-column label="封面">
+          <template slot-scope="scope">
+            <img
+              v-if="scope.row.cover.images[0]"
+              :src="scope.row.cover.images[0]"
+              alt=""
+              class="article_cover"
+            >
+          <img v-else src="../article/image/noimage.png" alt="" class="article_cover">
+          </template>
+        </el-table-column>
         <el-table-column prop="title" label="标题"></el-table-column>
         <el-table-column prop="status" label="状态">
           <template slot-scope="scope">
@@ -74,14 +84,19 @@
             <el-tag v-if="scope.row.status === 4">已删除</el-tag> -->
           </template>
         </el-table-column>
-        <el-table-column prop="pub_date" label="发布时间"></el-table-column>
+        <el-table-column label="发布时间">
+          <template slot-scope="scope">
+            {{ Number(`${scope.row.pub_date}`) | datetime }}
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <!-- 如果需要自定义表格列模板，则把需要自定义的内容放到 template 里 -->
-          <template>
+          <template slot-scope="scope">
             <el-button
               size="mini"
               circle
               icon="el-icon-edit"
+              @click="$router.push('/publish?id=' + scope.row.article_id)"
             ></el-button>
             <el-button
               size="mini"
@@ -165,5 +180,10 @@ export default {
 }
 .list-table {
   margin-bottom: 20px;
+}
+.article_cover{
+  width: 90px;
+  max-height: 80px;
+  background-size: cover;
 }
 </style>

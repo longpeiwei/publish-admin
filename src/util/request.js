@@ -13,11 +13,7 @@ export function apiLogin (data = {}) {
 export function getCurrentUser () {
   // const token = JSON.parse(window.localStorage.getItem('user')).token
   return axios
-    .get('/res/api/user', {
-      // headers: {
-      //   Authorization: `Bearer ${token}`
-      // }
-    })
+    .get('/res/api/user')
 }
 
 // 获取所有文章
@@ -30,6 +26,46 @@ export function getArticles (obj = {}) {
 export function getchannels () {
   return axios
     .get('/res/api/channels')
+}
+
+// 发布文章
+export function postArticle (obj, draft = false) {
+  return axios
+    .post(`/res/api/article/publish?draft=${draft}`, obj)
+}
+// 获取要修改的文章 id
+export function getArticleById (id) {
+  return axios
+    .get(`/res/api/articles/${id}`)
+}
+// 修改文章
+export function upadteArticle (id, obj, draft = false) {
+  return axios
+    .post(`/res/api/article/upadte/${id}?draft=${draft}`, obj)
+}
+
+// 上传图片返回一个地址
+export function uploadImage (data) {
+  return axios
+    .post('/load/avatar', data)
+}
+
+// 获取全部素材、图片
+export function getAllImages () {
+  return axios
+    .get('/res/api/images')
+}
+
+// 更新头像
+export function updateImages (obj = {}) {
+  return axios
+    .post('/res/api/image/upadte', obj)
+}
+
+// 更新信息
+export function updateInfo (user = {}) {
+  return axios
+    .post('/res/api/user/info', user)
 }
 
 // 请求拦截器  统一设置token
